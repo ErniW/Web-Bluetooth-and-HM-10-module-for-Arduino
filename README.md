@@ -17,3 +17,4 @@ Connect module RX to `pinno` and TX to `otherpinno`. The Arduino Sketch uses Sof
 - *It's just a HC-05 but with Low Energy.*
 - *Personally I don't like using Bluetooth LE as a Serial Communication port, it's just a cheap trick to use it on mobile devices that can be useful only in some cases. It's not the way Bluetooth Low Energy should work. Furthermore constant streaming of data is not so "Low Energy". To compare, check my* [Web Bluetooth and Arduino Nano BLE repo.](https://github.com/ErniW/Web-bluetooth-and-Arduino-Nano-33-BLE)
 - *For other notes check the metioned repository.*
+- *The web app lacks of proper error handling but it's a boilerplate I decided to make understandable as much as possible for my students.*

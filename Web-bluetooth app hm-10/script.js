@@ -1,19 +1,17 @@
 const serviceUUID = 0xFFE0;
 const serialUUID = 0xFFE1;
 
+let device;
 let serialCharacteristic;
 
-async function getDevice(){
+async function connect(){
 
-    const device = await navigator.bluetooth.requestDevice({
-        filters: [
-            {
-                "name": "BT05"
-                
-            }
-        ],
-        optionalServices: [serviceUUID]
+    device = await navigator.bluetooth.requestDevice({
+        filters: [{ 
+            services: [serviceUUID]
+        }],
     });
+
     const server = await device.gatt.connect();
     const service = await server.getPrimaryService(serviceUUID);
 
@@ -22,6 +20,18 @@ async function getDevice(){
     await serialCharacteristic.startNotifications();
 
     serialCharacteristic.addEventListener('characteristicvaluechanged', read);
+
+    document.getElementById('connect').removeEventListener("click", connect);
+    document.getElementById('connect').addEventListener("click", disconnect);
+    document.getElementById('connect').textContent = "Disconnect";
+}
+
+function disconnect(){
+    device.gatt.disconnect();
+
+    document.getElementById('connect').removeEventListener("click", disconnect);
+    document.getElementById('connect').addEventListener("click", connect);
+    document.getElementById('connect').textContent = "Connect";
 }
 
 function read(event) {
@@ -29,12 +39,11 @@ function read(event) {
     let view = new Uint8Array(buffer);
     let decodedMessage = String.fromCharCode.apply(null, view);
 
-
     let newNode = document.createElement('p');
     newNode.classList.add("received-message");
     newNode.textContent = decodedMessage;
+
     document.getElementById("terminal").appendChild(newNode);
-    //document.getElementById("received-message").textContent = decodedMessage;
 
     let placeholder = document.getElementsByClassName('placeholder');
     if(placeholder.length != 0) placeholder[0].remove();
@@ -53,7 +62,5 @@ async function write(event){
     await serialCharacteristic.writeValue(encodedMessage);
 }
 
-document.getElementById('connect').addEventListener("click", getDevice);
+document.getElementById('connect').addEventListener("click", connect);
 document.getElementById('send').addEventListener("click", write);
-
-//document.getElementById('message-input').addEventListener("change", write);

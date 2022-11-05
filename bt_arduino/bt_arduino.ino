@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
-#define BT_RX 10
-#define BT_TX 11
+#define BT_TX 10
+#define BT_RX 11
 
 SoftwareSerial BT(BT_RX, BT_TX);
 
@@ -15,6 +15,7 @@ void setup() {
 void loop() {
   if(BT.available()){
     message = BT.readStringUntil('\n');
+    message += " received";
     BT.println(message);
     Serial.println(message);
   }

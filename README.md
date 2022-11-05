@@ -9,7 +9,7 @@ Connect module RX to pin `11` and TX to pin `10`. The Arduino Sketch uses Softwa
 ### Connection:
 1. Pair your device, the default password should be `000000`. *Default settings are enough so you don't need to use AT-Mode.*
 2. Open the app and click connect to initialize the connection.
-3. Arduino sketch uses `readStringUntil('\n');`so the `\n` endline character is appended to each message. *There are various way to handle the communication and its buffer* if character is missing the buffer will wait until timeout.*
+3. Arduino sketch uses `readStringUntil('\n');`so the `\n` endline character is appended to each message. *There are various way to handle the communication and its buffer, if character is missing the buffer will wait until timeout.*
 
 ### Notes:
 - *Tested with Chrome browser and Arduino Uno. The Web Bluetooth is not supported on IOS.*

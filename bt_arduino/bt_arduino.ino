@@ -1,9 +1,9 @@
 #include <SoftwareSerial.h>
 
-#define BT_TX 10
-#define BT_RX 11
+#define BT_RX_PIN 11
+#define BT_TX_PIN 10
 
-SoftwareSerial BT(BT_RX, BT_TX);
+SoftwareSerial BT(BT_TX_PIN, BT_RX_PIN);
 
 String message;
 
